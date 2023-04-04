@@ -15,12 +15,11 @@ const URL = `mongodb+srv://${BD_USER}:${BD_PASS}@${BD_HOST}/${BD_NAME}?retryWrit
 mongoose
   .connect(URL)
   .then(() => {
+    app.listen(PORT, () => {
+      console.log(`El servidor se esta ejecutando en el puerto: ${PORT}`);
+    });
     console.log("Estamos conectados a la base de datos");
   })
   .catch((error) => {
     console.log("Algo salio mal en la base de datos:", error);
   });
-
-app.listen(PORT, () => {
-  console.log(`El servidor se esta ejecutando en el puerto: ${PORT}`);
-});
