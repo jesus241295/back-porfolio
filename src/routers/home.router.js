@@ -1,17 +1,21 @@
 const express = require("express");
-const Home = require("../models/home.model");
 const router = express.Router();
+const Home = require("../usecases/home.usecase");
 
 router.get("/", async (req, res) => {
-  const home = await Home.find({});
+  const home = await Home.getHome();
   res.json(home);
 });
 router.post("/", async (req, res) => {
-  const objectHome = req.body;
-  const newHome = new Home(objectHome);
-  await Home.create(newHome);
+  const newHome = await Home.createHome(req.body);
   res.statusCode = 201;
   res.json(newHome);
+});
+router.patch("/:id", async (req, res) => {
+  const id = req.params.id;
+  const homeInfo = req.body;
+  const updateHome = await Home.updateHome(id, homeInfo);
+  res.json(updateHome);
 });
 
 module.exports = router;
