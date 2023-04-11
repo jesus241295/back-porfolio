@@ -1,5 +1,5 @@
 const express = require("express");
-const About = require("../models/about.model");
+const About = require("../usecases/about.usecase");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -7,11 +7,15 @@ router.get("/", async (req, res) => {
   res.json(aboutObject);
 });
 router.post("/", async (req, res) => {
-  const objectAbout = req.body;
-  const newAbout = new About(objectAbout);
-  await About.create(newAbout);
+  const newAbout = await About.create(req.body);
   res.statusCode = 201;
   res.json(newAbout);
+});
+router.patch("/:id", async (req, res) => {
+  const id = req.params.id;
+  const aboutInfo = req.body;
+  const updateAbout = await About.updateAbout(id, aboutInfo);
+  res.json(updateAbout);
 });
 
 module.exports = router;

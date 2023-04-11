@@ -1,10 +1,10 @@
 const Home = require("../models/home.model");
 
 async function getHome() {
-  const home = await Home.find({});
+  const filter = {};
+  const home = await Home.find(filter);
   return home;
 }
-
 async function createHome(home) {
   const newHome = new Home(home);
   await Home.create(newHome);
