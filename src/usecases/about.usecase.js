@@ -5,14 +5,12 @@ async function getAbout() {
   const home = await About.find(filter);
   return home;
 }
-
 async function createAbout(about) {
   const newAbout = new About(about);
   await About.create(newAbout);
 
   return newAbout;
 }
-
 async function updateAbout(id, about) {
   const filter = {
     _id: id,
